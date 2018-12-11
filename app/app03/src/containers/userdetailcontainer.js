@@ -1,13 +1,34 @@
 import React from 'react';
+import {connect} from 'react-redux'
 
 class UserDetailContainer extends React.Component {
   
     
     render() { 
+   
+        if(this.props.activeUser==null)
+{
+    return (<div>Click name to see details..</div>)
+}
+else{
+
         return (  <div>
             UserDetails from the container
+            <br></br>
+          Name:  { this.props.activeUser.first} { this.props.activeUser.last} at { this.props.activeUser.age} says
+        <br></br><b>{ this.props.activeUser.description}</b>
         </div>);
     }
 }
  
-export default UserDetailContainer;
+}
+
+
+function convertStoreToProps(store)
+{
+
+    return {
+        activeUser:store.clickeduser
+    }
+}
+export default connect(convertStoreToProps)(UserDetailContainer);
